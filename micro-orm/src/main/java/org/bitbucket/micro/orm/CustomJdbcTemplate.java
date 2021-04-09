@@ -94,11 +94,30 @@ public class CustomJdbcTemplate {
     }
 
     public void update(String query, Object... params) {
-
-    }
+            try (Connection connection = this.dataSource.getConnection();
+                 PreparedStatement stmt = connection.prepareStatement(query)) {
+                if (params.length != 0) {
+                    for (int i = 0; i < params.length; i++) {
+                        stmt.setObject(i + 1, params[i]);
+                    }
+                }
+                stmt.execute();
+            } catch (SQLException e) {
+                System.out.printf("Message %s \n", e.getMessage());
+            }
+        }
 
     public void delete(String query, Object... params) {
-
+        try (Connection connection = this.dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
+            }
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.printf("Message %s \n", e.getMessage());
+        }
     }
-
-}
+        }
