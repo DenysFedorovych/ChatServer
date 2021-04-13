@@ -1,7 +1,5 @@
 package org.bitbucket.dto;
 
-import org.bitbucket.micro.orm.CustomRowMapper;
-
 import java.util.Objects;
 
 public class UserAuthorizationDto {
