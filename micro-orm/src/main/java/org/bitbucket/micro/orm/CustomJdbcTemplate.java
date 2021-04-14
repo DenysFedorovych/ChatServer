@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomJdbcTemplate {
+public class CustomJdbcTemplate<T> {
 
     private final DataSource dataSource;
 
@@ -14,7 +14,7 @@ public class CustomJdbcTemplate {
         this.dataSource = dataSource;
     }
 
-    public <T> Collection<T> findAll(String query, CustomRowMapper<T> rm, Object... params) {
+    public Collection<T> findAll(String query, CustomRowMapper<T> rm, Object... params) {
         List<T> result = new ArrayList<>();
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -31,7 +31,7 @@ public class CustomJdbcTemplate {
         return result;
     }
 
-    public <T> T findBy(String query, CustomRowMapper<T> rm, Object... params) {
+    public T findBy(String query, CustomRowMapper<T> rm, Object... params) {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -48,7 +48,7 @@ public class CustomJdbcTemplate {
         return result;
     }
 
-    public <T> T find(String query, CustomRowExtractor<T> re, Object... params) {
+    public T find(String query, CustomRowExtractor<T> re, Object... params) {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -104,5 +104,4 @@ public class CustomJdbcTemplate {
         }
         return result;
     }
-
 }
