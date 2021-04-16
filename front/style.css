@@ -1,0 +1,39 @@
+.chat_cont{
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width:450px;
+    height:900px;
+}
+#header{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: white;
+    border: 1px solid black;
+}
+#article{
+    position: relative;
+    width: 450px;
+    height: 590px;
+}
+#backgr_dialog{
+    width: 450px;
+    height: 650px;
+    background: #313335;
+    border: 1px solid black;
+}
+#footer{
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+#textarea{
+    width: 400px;
+    height: 150px;
+    resize: none;
+    background: lightcyan;
+}
+#sendMsg{
+    width: 50px;
+}
