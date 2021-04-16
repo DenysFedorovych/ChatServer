@@ -10,6 +10,7 @@ public class Token implements Serializable {
     private long userid;
 
     private String firstName;
+
     private String lastName;
 
     private Date expireIn;

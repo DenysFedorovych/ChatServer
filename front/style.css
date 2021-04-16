@@ -20,7 +20,7 @@
 #backgr_dialog{
     width: 450px;
     height: 650px;
-    background: #313335;
+    background: lightcyan;
     border: 1px solid black;
 }
 #footer{
