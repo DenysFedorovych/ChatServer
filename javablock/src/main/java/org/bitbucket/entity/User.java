@@ -1,9 +1,5 @@
 package org.bitbucket.entity;
 
-import org.bitbucket.micro.orm.CustomRowMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class User {

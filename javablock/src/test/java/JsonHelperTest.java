@@ -15,7 +15,7 @@ public class JsonHelperTest {
 
     private UserAuthorizationDto userAuthorizationDto = new UserAuthorizationDto("login", "password");
 
-    private UserRegistrationDto userRegistrationDto = new UserRegistrationDto("login", "password", "password","email", "+22222222");
+    private UserRegistrationDto userRegistrationDto = new UserRegistrationDto("Denys", "Fedorovych", "login", "password", "password","email", "+22222222");
 
     @Test
     public void toFormatOutFormatEqualityString() {

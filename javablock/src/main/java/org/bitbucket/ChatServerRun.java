@@ -6,7 +6,8 @@ import org.bitbucket.config.ServerConfig;
 
 import javax.servlet.ServletException;
 
-public class Main {
+public class ChatServerRun {
+
     public static void main(String[] args) {
         Tomcat t = null;
         try {
@@ -17,4 +18,5 @@ public class Main {
             System.out.printf("Enter:%s",e.getMessage());
         }
     }
+
 }

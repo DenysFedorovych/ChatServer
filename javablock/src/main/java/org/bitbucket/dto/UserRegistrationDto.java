@@ -1,8 +1,14 @@
 package org.bitbucket.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 public class UserRegistrationDto {
+
+    private String firstName;
+
+    private String lastName;
 
     private String login;
 
@@ -17,14 +23,27 @@ public class UserRegistrationDto {
     public UserRegistrationDto() {
     }
 
-    //TODO - maybe get rid of confirmation password
-
-    public UserRegistrationDto(String login, String password, String confirmPassword, String email, String phone) {
+    public UserRegistrationDto(String firstName, String lastName, String login, String password, String confirmPassword, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.email = email;
         this.phone = phone;
+    }
+
+    @JsonIgnore
+    public boolean isValidPassword() {
+        return this.password.equals(this.confirmPassword);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getLogin() {

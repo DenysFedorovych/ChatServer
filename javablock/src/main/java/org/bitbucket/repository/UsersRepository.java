@@ -1,64 +1,68 @@
 package org.bitbucket.repository;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.bitbucket.dto.UserAuthorizationDto;
 import org.bitbucket.dto.UserRegistrationDto;
 import org.bitbucket.entity.User;
 import org.bitbucket.micro.orm.CustomJdbcTemplate;
 
-import java.util.Collection;
+public class UsersRepository {
 
-public class UsersRepository implements IUserRepository {
-    //Hikari config
-    private final CustomJdbcTemplate customJdbcTemplate;
+    private final CustomJdbcTemplate jdbcTemplate;
 
-    private final HikariDataSource dataSource;
-
-    public UsersRepository(HikariConfig hikariConfig){
-        dataSource = new HikariDataSource(hikariConfig);
-        customJdbcTemplate = new CustomJdbcTemplate(dataSource);
+    public UsersRepository(CustomJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    //Database commands (find, create, update, delete)
-
-    @Override
-    public Collection findAll() {
-        String sqlScript = "select * from " + "table_name";
-        try {
-            return customJdbcTemplate.findAll(sqlScript, RowMapper.getCustomRowMapperUser());
-        } catch (NullPointerException e) {
-            throw new NullPointerException("No users");
-        }
+    public User findByAuthDto(UserAuthorizationDto userAuthorizationDto){
+        return jdbcTemplate.findBy(
+                "SELECT * FROM users WHERE login = ? AND password = ?",
+                RowMapper.getCustomRowMapperUser(),
+                userAuthorizationDto.getLogin(),
+                userAuthorizationDto.getPassword()
+        );
     }
 
-    @Override
-    public User findAuth(UserAuthorizationDto userAuthorizationDto) {
-        return null;
+    public User findById(long id){
+        return jdbcTemplate.findBy(
+                "SELECT * FROM users WHERE id = ?",
+                RowMapper.getCustomRowMapperUser(),
+                id
+        );
     }
 
-    @Override
-    public User findReg(UserRegistrationDto userRegistrationDto) {
-        return null;
+    public User insert(UserRegistrationDto userRegistrationDto){
+        return jdbcTemplate.insert(
+                "INSERT INTO users (first_name, last_name, email, login, password, phone_number) VALUES(?, ?, ?, ?, ?, ?)",
+                RowMapper.getCustomRowMapperUser(),
+                userRegistrationDto.getFirstName(),
+                userRegistrationDto.getLastName(),
+                userRegistrationDto.getEmail(),
+                userRegistrationDto.getLogin(),
+                userRegistrationDto.getPassword(),
+                userRegistrationDto.getPhone()
+        );
     }
 
-    @Override
-    public User insert(UserRegistrationDto userRegistrationDto) {
-        return null;
+    public void delete(UserRegistrationDto userRegistrationDto){
+        jdbcTemplate.delete(
+                "DELETE FROM users WHERE login = ?",
+                userRegistrationDto.getLogin()
+        );
     }
 
-    @Override
-    public User update(User user) {
-        return null;
+    public void update(UserRegistrationDto userRegistrationDto){
+        jdbcTemplate.update(
+                "UPDATE users " +
+                        "SET first_name = ?, last_name = ?, email = ?, login = ?, password = ?, phone_number = ?" +
+                        "WHERE login = ?",
+                userRegistrationDto.getFirstName(),
+                userRegistrationDto.getLastName(),
+                userRegistrationDto.getEmail(),
+                userRegistrationDto.getLogin(),
+                userRegistrationDto.getPassword(),
+                userRegistrationDto.getPhone(),
+                userRegistrationDto.getLogin()
+                );
     }
 
-    @Override
-    public void delete(User user) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

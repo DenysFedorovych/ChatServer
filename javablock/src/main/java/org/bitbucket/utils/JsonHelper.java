@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.bitbucket.payload.Token;
+
 
 import java.util.Optional;
 
@@ -18,7 +18,6 @@ public class JsonHelper {
         try {
             return Optional.of(mapper.writeValueAsString(object));
         } catch (JsonProcessingException e) {
-            //TODO - add logger
             logger.error(e);
             e.printStackTrace();
         }
@@ -34,7 +33,4 @@ public class JsonHelper {
         return Optional.empty();
     }
 
-    public static String toJson(Token auth) {
-        return null;
-    }
 }

@@ -26,12 +26,12 @@ public class RowMapper {
         if (customRowMapperUser == null) {
             customRowMapperUser = rs -> new User(
                     rs.getInt("id"),
-                    rs.getString("firstName"),
-                    rs.getString("lastName"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
                     rs.getString("email"),
                     rs.getString("login"),
                     rs.getString("password"),
-                    rs.getString("phoneNumber")
+                    rs.getString("phone_number")
             );
         }
         return customRowMapperUser;
@@ -40,6 +40,8 @@ public class RowMapper {
     public static CustomRowMapper<UserRegistrationDto> getCustomRowMapperReg(){
         if (customRowMapperReg == null) {
             customRowMapperReg = rs -> new UserRegistrationDto(
+                    rs.getString("firstName"),
+                    rs.getString("lastName"),
                     rs.getString("login"),
                     rs.getString("password"),
                     rs.getString("confirmPassword"),
