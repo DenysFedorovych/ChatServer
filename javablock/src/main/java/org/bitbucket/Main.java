@@ -13,10 +13,8 @@ public class Main {
             t = ServerConfig.tomcat();
             t.start();
             t.getServer().await();
-        } catch (ServletException| LifecycleException e) {
+        } catch (ServletException | LifecycleException e) {
             System.out.printf("Enter:%s",e.getMessage());
         }
-
-
     }
 }
