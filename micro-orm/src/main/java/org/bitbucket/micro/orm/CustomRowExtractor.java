@@ -11,4 +11,3 @@ import java.sql.SQLException;
 public interface CustomRowExtractor<T> {
     T extract(ResultSet rs) throws SQLException;
 }
-

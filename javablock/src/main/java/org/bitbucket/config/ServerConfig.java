@@ -1,14 +1,7 @@
 package org.bitbucket.config;
 
 import org.apache.catalina.Context;
-import org.apache.catalina.User;
-import org.apache.catalina.WebResourceRoot;
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.catalina.webresources.DirResourceSet;
-import org.apache.catalina.webresources.StandardRoot;
-import org.bitbucket.controllers.UserControllers;
-import org.bitbucket.handlers.UsersHandlers;
 
 import javax.servlet.ServletException;
 import java.io.File;

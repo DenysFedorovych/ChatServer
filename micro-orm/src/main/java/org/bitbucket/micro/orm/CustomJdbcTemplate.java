@@ -1,12 +1,15 @@
 package org.bitbucket.micro.orm;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomJdbcTemplate<T> {
+public class CustomJdbcTemplate {
 
     private final DataSource dataSource;
 
@@ -14,12 +17,14 @@ public class CustomJdbcTemplate<T> {
         this.dataSource = dataSource;
     }
 
-    public Collection<T> findAll(String query, CustomRowMapper<T> rm, Object... params) {
+    public <T> Collection<T> findAll(String query, CustomRowMapper<T> rm, Object... params) {
         List<T> result = new ArrayList<>();
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -31,12 +36,14 @@ public class CustomJdbcTemplate<T> {
         return result;
     }
 
-    public T findBy(String query, CustomRowMapper<T> rm, Object... params) {
+    public <T> T findBy(String query, CustomRowMapper<T> rm, Object... params) {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -48,12 +55,14 @@ public class CustomJdbcTemplate<T> {
         return result;
     }
 
-    public T find(String query, CustomRowExtractor<T> re, Object... params) {
+    public <T> T find(String query, CustomRowExtractor<T> re, Object... params) {
         T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
             ResultSet rs = stmt.executeQuery();
             result = re.extract(rs);
@@ -63,45 +72,52 @@ public class CustomJdbcTemplate<T> {
         return result;
     }
 
-    public boolean insert(String query, Object... params) {
-        boolean result = false;
+    public <T> T insert(String query, CustomRowMapper<T> rm, Object... params) {
+        T result = null;
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
-            result = stmt.execute();
+            int row = stmt.executeUpdate();
+            if (row != 0) {
+                ResultSet rs = stmt.getGeneratedKeys();
+                rs.next();
+                result = rm.rowMap(rs);
+            }
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
         return result;
     }
 
-    public boolean update(String query, Object... params) {
-        boolean result = false;
-        try (Connection connection = this.dataSource.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+    public void update(String query, Object... params) {
+            try (Connection connection = this.dataSource.getConnection();
+                 PreparedStatement stmt = connection.prepareStatement(query)) {
+                if (params.length != 0) {
+                    for (int i = 0; i < params.length; i++) {
+                        stmt.setObject(i + 1, params[i]);
+                    }
+                }
+                stmt.execute();
+            } catch (SQLException e) {
+                System.out.printf("Message %s \n", e.getMessage());
             }
-            result = stmt.execute();
-        } catch (SQLException e) {
-            System.out.printf("Message %s \n", e.getMessage());
         }
-        return result;
-    }
 
-    public boolean delete(String query, Object... params) {
-        boolean result = false;
+    public void delete(String query, Object... params) {
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            if (params.length != 0) {
+                for (int i = 0; i < params.length; i++) {
+                    stmt.setObject(i + 1, params[i]);
+                }
             }
-            result = stmt.execute();
+            stmt.execute();
         } catch (SQLException e) {
             System.out.printf("Message %s \n", e.getMessage());
         }
-        return result;
     }
-}
+        }

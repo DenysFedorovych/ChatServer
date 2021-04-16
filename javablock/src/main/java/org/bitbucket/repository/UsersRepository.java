@@ -11,13 +11,13 @@ import java.util.Collection;
 
 public class UsersRepository implements IUserRepository {
     //Hikari config
-    private final CustomJdbcTemplate<User> customJdbcTemplate;
+    private final CustomJdbcTemplate customJdbcTemplate;
 
     private final HikariDataSource dataSource;
 
     public UsersRepository(HikariConfig hikariConfig){
         dataSource = new HikariDataSource(hikariConfig);
-        customJdbcTemplate = new CustomJdbcTemplate<>(dataSource);
+        customJdbcTemplate = new CustomJdbcTemplate(dataSource);
     }
 
     //Database commands (find, create, update, delete)
