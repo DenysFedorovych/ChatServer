@@ -11,7 +11,11 @@ import javax.sql.DataSource;
 public class DatabaseConfig {
 
     public static DataSource getHikariDS(){
-        HikariConfig hikariConfig = new HikariConfig("src/main/resources/hikari.properties");
+//        HikariConfig hikariConfig = new HikariConfig("src/main/resources/hikari.properties");
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:postgresql://localhost:5432/");
+        hikariConfig.setUsername("postgres");
+        hikariConfig.setPassword("postgres");
         return new HikariDataSource(hikariConfig);
     }
 
