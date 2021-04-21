@@ -5,7 +5,7 @@ import org.bitbucket.payload.Token;
 public class TokenProvider {
 
     public static String encoding(Token token) {
-        return JsonHelper.toJson(token);
+        return "JsonHelper.toFormat(token)";
     }
 
     public static Token decoding(String str) {

@@ -18,5 +18,4 @@ public class ChatServerRun {
             System.out.printf("Enter:%s",e.getMessage());
         }
     }
-
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<style>
+    .spanus{
+        borde: 1px solid black;
+    }
+</style>
+<body>
+<div class="chatwindow">
+    <div class="topside">
+        <h1>TEXT</h1>
+    </div>
+    <div id="mainWindow"></div>
+    <div id="textWindow" class="textinputwindow">
+    </div>
+    <textarea id="textarea" placeholder="Enter message"></textarea>
+    <button id="newMsg" type="button" onclick="addMsg()">CLICK</button>
+</div>
+<script>
+    let str1 = document.getElementById("textarea").value;
+    function addMsg() {
+        let str = <p> 'str1 </p>,
+            div = document.getElementById("textWindow");
+        div.insertAdjacentHTML('beforeend', str);
+    }
+</script>
+</body>
+</html>

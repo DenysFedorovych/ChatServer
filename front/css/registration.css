@@ -1,0 +1,75 @@
+body{
+    background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/470470/5107c1158cfe9f8552383ff5490c793ae14c34c9.jpg");
+    background-position: right;
+    background-size: 200%, 150%;
+    margin: 10%;
+    font-family:'Open Sans', Arial, sans-serif;
+    font-size: 1em;
+}
+
+
+.registration{
+    background-image: url("https://data.whicdn.com/images/310225235/original.gif");
+    background-position: right;
+    background-size: 150%, 100%;
+    border-right: 2px solid #C5C5C8;
+    border-top: 2px solid plum;
+    border-left: 2px solid plum;
+    border-bottom: 2px solid #C5C5C8;
+    border-radius: 2px;
+    text-align: center;
+    color: #36383C;
+    text-shadow: 0 1px 0 #FFF;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px 40px 20px 40px;
+    box-shadow: 0 0 3px #000;
+}
+
+input:focus{
+    outline: none;
+}
+
+.blockinput{
+    border-bottom: 2px none;
+    padding: 2px;
+    border-top: 2px none;
+}
+
+.blockinput:first-child{
+    border-top: 0;
+}
+
+.blockinput:last-child{
+    border-bottom: 0px;
+}
+
+.blockinput i{
+    padding-right: 10px;
+    color: #B1B3B7;
+    text-shadow: 0 1px 0 #FFF;
+}
+::-webkit-input-placeholder {
+    color: #71747A;
+    font-family:'Open Sans', Arial, sans-serif;
+    text-shadow: 0 1px 0 #FFF;
+}
+button{
+    margin: 2% 27% 5%;
+    display: block;
+    width: 50%;
+    line-height: 1em;
+
+    border:0;
+    cursor: pointer;
+    border-top: 1px solid gray;
+    box-shadow: 0 2px 2px #808389;
+    color: black;
+    font-size: 1em;
+    text-shadow: 0 1px 2px white;
+}
+
+button:active{
+    box-shadow: inset 0 0 5px #000;
+    background: linear-gradient(to bottom, rgba(57,175,154,1) 0%,rgba(107,198,186,1) 100%);
+}

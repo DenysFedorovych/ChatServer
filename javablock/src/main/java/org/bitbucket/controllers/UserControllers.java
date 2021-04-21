@@ -15,8 +15,8 @@ public class UserControllers {
         this.customUsersService = customUsersService;
     }
 
-    public Token auth(UserAuthorizationDto payload){
-        return new Token(1L,"First Name","Last Name",new Date(),new Date());
+    public Token auth(UserAuthorizationDto payload) {
+        return new Token(1L, "First Name", "Last Name", new Date(), new Date());
     }
 
     public void registration(UserRegistrationDto userRegistrationDto) {

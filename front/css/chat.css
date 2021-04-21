@@ -1,0 +1,34 @@
+body{
+    background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/470470/5107c1158cfe9f8552383ff5490c793ae14c34c9.jpg");
+    background-position: right;
+    background-size: 200%, 150%;
+    margin: 10%;
+    font-family:'Open Sans', Arial, sans-serif;
+    font-size: 1em;
+}
+
+.chatwindow {
+    width: 70%;
+    height: 60%;
+    background: white;
+    border-top: 2px blueviolet;
+    border-left: 2px blueviolet;
+    margin: 15% auto 0 auto;
+}
+
+.topside{
+    width: 100%;
+    height: 5%;
+    border-bottom: 1px plum;
+}
+
+#mainWindow{
+    width: 100%;
+    height: 90%;
+    border-bottom: 1px plum;
+    border-top: 1px plum;
+}
+
+textarea{
+    width: 90%;
+}

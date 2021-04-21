@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/registration.css">
+</head>
+<body>
+<div class="registration">
+    <h1>REGISTRATION</h1>
+    <form action="registration">
+        <div class="input">
+            <div class="blockinput">
+                <i class="icon-envelope-alt"></i><input type="text" id="fname" placeholder="First Name">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="text"id="lname" placeholder="Last Name">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="text" id="username" placeholder="Username">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="password" id="password" placeholder="Password">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="password" id="checkpass" placeholder="Confirm password">
+            </div>
+        </div>
+        <button id="enter" type="button" onclick="registration()">Confirm registration</button>
+        <button id="register" formaction="../html/main.html">Back to main page</button>
+    </form>
+</div>
+<script src="../scripts/index.js"></script>
+</body>
+</html>
