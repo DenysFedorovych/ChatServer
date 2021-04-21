@@ -15,26 +15,26 @@ public class CustomUsersService implements IUserService {
 
     @Override
     public User findById(long id) {
-        return null;
+        return this.usersRepository.findById(id);
     }
 
     @Override
     public User findByAuth(UserAuthorizationDto auth) {
-        return null;
+        return this.usersRepository.findByAuthDto(auth);
     }
 
     @Override
     public User insert(UserRegistrationDto userRegistrationDto) {
-        return null;
+        return this.usersRepository.insert(userRegistrationDto);
     }
 
     @Override
     public void delete(UserRegistrationDto userRegistrationDto) {
-
+        this.usersRepository.delete(userRegistrationDto);
     }
 
     @Override
     public void update(UserRegistrationDto userRegistrationDto) {
-
+        this.usersRepository.update(userRegistrationDto);
     }
 }

@@ -2,10 +2,11 @@ package org.bitbucket.controllers;
 
 import org.bitbucket.dto.UserAuthorizationDto;
 import org.bitbucket.dto.UserRegistrationDto;
+import org.bitbucket.entity.User;
+import org.bitbucket.exceptions.UserAlreadyExistException;
 import org.bitbucket.payload.Token;
 import org.bitbucket.service.CustomUsersService;
-
-import java.util.Date;
+import org.bitbucket.utils.TokenProvider;
 
 public class UserControllers {
 
@@ -15,11 +16,15 @@ public class UserControllers {
         this.customUsersService = customUsersService;
     }
 
-    public Token auth(UserAuthorizationDto payload) {
-        return new Token(1L, "First Name", "Last Name", new Date(), new Date());
+    public String auth(UserAuthorizationDto payload) {
+        User user = this.customUsersService.findByAuth(payload);
+        return TokenProvider.encode(new Token(user));
     }
 
     public void registration(UserRegistrationDto userRegistrationDto) {
-
+        if (this.customUsersService.findByAuth(new UserAuthorizationDto(userRegistrationDto)) != null) {
+            throw new UserAlreadyExistException();
+        }
+        customUsersService.insert(userRegistrationDto);
     }
 }
