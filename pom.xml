@@ -45,7 +45,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
+                            <addClasspath>false</addClasspath>
                             <mainClass>org.bitbucket.ChatServerRun</mainClass>
                         </manifest>
                     </archive>

@@ -15,7 +15,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>launch.Main</mainClass>
+                            <mainClass>org.bitbucket.ChatServerRun</mainClass>
                             <name>webapp</name>
                         </program>
                     </programs>
@@ -45,7 +45,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>launch.Main</mainClass>
+                            <mainClass>org.bitbucket.ChatServerRun</mainClass>
                             <name>webapp</name>
                         </program>
                     </programs>
@@ -83,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
+                            <addClasspath>false</addClasspath>
                             <mainClass>org.bitbucket.ChatServerRun</mainClass>
                         </manifest>
                     </archive>
@@ -100,7 +100,7 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>launch.Main</mainClass>
+                            <mainClass>org.bitbucket.ChatServerRun</mainClass>
                             <name>webapp</name>
                         </program>
                     </programs>
