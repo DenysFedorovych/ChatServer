@@ -11,12 +11,15 @@ import javax.sql.DataSource;
 public class DatabaseConfig {
 
     public static DataSource getHikariDS(){
-//        HikariConfig hikariConfig = new HikariConfig("src/main/resources/hikari.properties");
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:postgresql://localhost:5432/");
-        hikariConfig.setUsername("postgres");
-        hikariConfig.setPassword("postgres");
-        return new HikariDataSource(hikariConfig);
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setJdbcUrl("jdbc:postgresql://ec2-34-252-251-16.eu-west-1.compute.amazonaws.com/de28o4hdufj7m1");
+        config.setUsername("qgvrweumbrinxe");
+        config.setPassword("89c37abe70b0c0a5b337f1a55edccb6e7064a1c93eaac14db2a4d747c42e2be5");
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        return new HikariDataSource(config);
     }
 
     public static UsersRepository getUsersRepository(){
