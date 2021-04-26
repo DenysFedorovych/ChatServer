@@ -1,3 +1,5 @@
+package org.bitbucket.utils;
+
 import org.bitbucket.dto.UserAuthorizationDto;
 import org.bitbucket.dto.UserRegistrationDto;
 import org.bitbucket.entity.User;
