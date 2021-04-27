@@ -1,6 +1,7 @@
 package org.bitbucket.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bitbucket.entity.User;
 
 import java.util.Objects;
 
@@ -31,6 +32,16 @@ public class UserRegistrationDto {
         this.confirmPassword = confirmPassword;
         this.email = email;
         this.phone = phone;
+    }
+
+    public UserRegistrationDto(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.confirmPassword = this.password;
+        this.email = user.getEmail();
+        this.phone = user.getPhoneNumber();
     }
 
     @JsonIgnore
@@ -71,7 +82,9 @@ public class UserRegistrationDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserRegistrationDto that = (UserRegistrationDto) o;
-        return Objects.equals(login, that.login) &&
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(login, that.login) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(confirmPassword, that.confirmPassword) &&
                 Objects.equals(email, that.email) &&
@@ -80,6 +93,19 @@ public class UserRegistrationDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, confirmPassword, email, phone);
+        return Objects.hash(firstName, lastName, login, password, confirmPassword, email, phone);
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }
