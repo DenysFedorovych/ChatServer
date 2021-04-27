@@ -20,7 +20,7 @@ public class ServerConfig {
             webPort = "5432";
         }
 
-        tomcat.setPort(Integer.valueOf(webPort));
+        tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());
         tomcat.addServlet("","UsersHandler",HandlerConfig.usersHandlers());
         ctx.addServletMappingDecoded("/","UsersHandler");
@@ -40,4 +40,11 @@ public class ServerConfig {
         }
         tomcat.getServer().await();
     }
+
+    public static ServerEndpointConfig.Configurator sec = new ServerEndpointConfig.Configurator() {
+        @Override
+        public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
+            return (T) new WebSocketHandler();
+        }
+    };
 }
