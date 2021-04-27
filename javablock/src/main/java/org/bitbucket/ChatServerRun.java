@@ -11,11 +11,13 @@ public class ChatServerRun {
     public static void main(String[] args) {
         Tomcat t = null;
         try {
-            t = ServerConfig.tomcat();
-            t.start();
-            t.getServer().await();
-        } catch (ServletException| LifecycleException e) {
+            ServerConfig.tomcat();
+//            t.start();
+//            t.getServer().await();
+        } catch (ServletException e) {
             System.out.printf("Enter:%s",e.getMessage());
+        } catch (LifecycleException e) {
+            e.printStackTrace();
         }
     }
 
