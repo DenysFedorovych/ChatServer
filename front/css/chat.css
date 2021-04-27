@@ -35,6 +35,10 @@ body{
     width: 20%;
     height: 99%;
 }
+#usersLabel{
+    margin-left: 5px;
+    margin-top: 5px;
+}
 
 
 .chat_dialogs_template {
