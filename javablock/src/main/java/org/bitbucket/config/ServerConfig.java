@@ -1,43 +1,53 @@
 package org.bitbucket.config;
 
 import org.apache.catalina.Context;
-import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.bitbucket.handlers.WebSocketHandler;
+import org.apache.tomcat.websocket.server.Constants;
+import org.apache.tomcat.websocket.server.WsContextListener;
+import org.bitbucket.handlers.WebsocketHandler;
 
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
 import javax.websocket.server.ServerContainer;
 import javax.websocket.server.ServerEndpointConfig;
 import java.io.File;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class ServerConfig {
-    public static void tomcat() throws ServletException, LifecycleException {
+
+    public static ServerRunner tomcat() throws ServletException {
         Tomcat tomcat = new Tomcat();
 
         String webPort = System.getenv("PORT");
-        if(webPort == null || webPort.isEmpty()) {
+        if (webPort == null || webPort.isEmpty()) {
             webPort = "5432";
         }
-
-        tomcat.setPort(Integer.valueOf(webPort));
+        tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());
-        tomcat.addServlet("","UsersHandler",HandlerConfig.usersHandlers());
-        ctx.addServletMappingDecoded("/","UsersHandler");
+        ctx.addApplicationListener(WsContextListener.class.getName());
+        tomcat.addServlet("", "UsersHandler", HandlerConfig.usersHandlers());
+        ctx.addServletMappingDecoded("/users", "UsersHandler");
+        return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler));
+    }
 
-        tomcat.start();
-        ServerContainer scon = (ServerContainer) ctx.getServletContext().getAttribute(ServerContainer.class.getName());
+    private static Consumer<Context> chatWebsocketHandler = ctx -> {
+        ServerContainer scon = (ServerContainer) ctx.getServletContext().getAttribute(Constants.SERVER_CONTAINER_SERVLET_CONTEXT_ATTRIBUTE);
         try {
-            scon.addEndpoint(ServerEndpointConfig.Builder.create(WebSocketHandler.class,"/echo")
+            scon.addEndpoint(ServerEndpointConfig.Builder.create(WebsocketHandler.class, "/chat")
                     .configurator(new ServerEndpointConfig.Configurator() {
-                @Override
-                public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
-                    return (T) new WebSocketHandler();
-                }
-            }).build());
+                        @Override
+                        public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
+                            return (T) HandlerConfig.websocketHandler();
+                        }
+                    }).build());
         } catch (DeploymentException e) {
             e.printStackTrace();
         }
-        tomcat.getServer().await();
+    };
+
+    private void websocketRegistry(Context ctx, Object handler) {
+
+
     }
 }

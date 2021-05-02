@@ -1,7 +1,18 @@
 package org.bitbucket.payload;
 
-enum Topic{
+public enum Topic{
+    auth("auth"),
+    messages("messages"),
+    connect("connect"),
+    disconnect("disconnect");
 
-    connect,
-    disconnect;
+    private String val;
+
+    Topic(String val){
+        this.val = val;
+    }
+
+    public String getVal() {
+        return val;
+    }
 }
