@@ -132,6 +132,28 @@ body{
     height: 48px;
 }
 
+#exitBtn {
+    background: #B1B3B7;
+    border-top: 2px solid whitesmoke;
+    border-left: 2px solid whitesmoke;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+#exitBtn:active {
+    font-size: 0.8em;
+    background: #808389;
+    border-bottom: 2px solid whitesmoke;
+    border-right: 2px solid whitesmoke;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    width: 100%;
+    height: 100%;
+}
+
 #sendBtn {
     background: #B1B3B7;
     border-top: 2px solid whitesmoke;
@@ -188,7 +210,13 @@ body{
 }
 
 #status{
+     position: absolute;
+     margin-top: 5px;
+     margin-left: 200px;
+}
+
+#buttonExit{
     position: absolute;
     margin-top: 5px;
-    margin-left: 200px;
+    margin-left: 665px;
 }
