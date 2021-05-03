@@ -4,6 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.websocket.server.Constants;
 import org.apache.tomcat.websocket.server.WsContextListener;
+import org.bitbucket.handlers.UsersHandlers;
 import org.bitbucket.handlers.WebsocketHandler;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class ServerConfig {
 
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
-            webPort = "5432";
+            webPort = "8080"; //TODO - make 5432
         }
         tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());

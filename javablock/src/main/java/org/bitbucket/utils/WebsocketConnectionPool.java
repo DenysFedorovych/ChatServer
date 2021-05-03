@@ -9,7 +9,6 @@ public class WebsocketConnectionPool {
 
     private ConcurrentHashMap<Long, Session> sessions = new ConcurrentHashMap<>();
 
-    //TODO - make addSession method (second argument is unknown)
     public void addSession(long id, Session session) {
         this.sessions.put(id, session);
     }
