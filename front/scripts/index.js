@@ -1,8 +1,9 @@
+
 function login() {
     let newSocket = new WebSocket("ws://echo.websocket.org");
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    const logIn = {
+    let logIn = {
         type: "login",
         username: username,
         password: password
@@ -10,7 +11,6 @@ function login() {
 
     newSocket.onopen = function (event) {
         console.log("CONNECTION");
-
         newSocket.send(JSON.stringify(logIn));
     }
 
@@ -30,41 +30,30 @@ function login() {
 }
 
 function registration() {
+    const firstName = document.getElementById("fname").value;
+    const lastName = document.getElementById("lname").value;
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
     const pass = document.getElementById("password").value;
     const checkPass = document.getElementById("checkpass").value;
-    let regIn;
-    if (pass.length < 4 || pass === "") {
-        alert("LOH");
-    } else if (pass === checkPass) {
-        let newSocket = new WebSocket("ws://echo.websocket.org");
-        regIn = {
-            type: "registration",
-            firstName: document.getElementById("fname").value,
-            lastName: document.getElementById("lname").value,
-            username: document.getElementById("username").value,
-            email: document.getElementById("email").value,
-            password: pass
-        };
 
-        newSocket.onopen = function (event) {
-            console.log("CONNECTION");
+    let regIn = {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        password: pass,
+        checkPass: checkPass
+    };
 
-            newSocket.send(JSON.stringify(regIn));
+    axios.post('http://localhost:8080', regIn).then((response) => {
+        console.log(response.data);
+        if (response.status >= 200 && response.status < 300) {
+            console.log('registration good');
+            setTimeout(50000);
+            window.location = '..\\html\\main.html';
         }
-
-        newSocket.onmessage = function (ev) {
-            let message = JSON.parse(ev.data);
-            alert(message.type + " " + message.username + " " + message.firstName);
-            newSocket.close();
-            setTimeout(() => {
-                window.location.replace("../html/main.html")
-            }, 1000);
-        }
-
-        newSocket.onclose = function (ev) {
-            console.log("CLOSED");
-        }
-    } else {
-        alert("Password not equals to checked");
-    }
+    }, (error) => {
+        console.log(error);
+    });
 }
