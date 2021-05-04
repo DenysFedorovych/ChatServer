@@ -4,6 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.websocket.server.Constants;
 import org.apache.tomcat.websocket.server.WsContextListener;
+import org.bitbucket.handlers.UsersHandlers;
 import org.bitbucket.handlers.WebsocketHandler;
 
 import javax.servlet.ServletException;
@@ -21,14 +22,14 @@ public class ServerConfig {
 
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
-            webPort = "5432";
+            webPort = "8080"; //TODO - make 5432
         }
         tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());
         ctx.addApplicationListener(WsContextListener.class.getName());
         tomcat.addServlet("", "UsersHandler", HandlerConfig.usersHandlers());
         ctx.addServletMappingDecoded("/users", "UsersHandler");
-        return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler));
+        return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler, userAuthHandler));
     }
 
     private static Consumer<Context> chatWebsocketHandler = ctx -> {
@@ -39,6 +40,7 @@ public class ServerConfig {
                         @Override
                         public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
                             return (T) HandlerConfig.websocketHandler();
+                            //TODO уйти от каждого раза создания
                         }
                     }).build());
         } catch (DeploymentException e) {
@@ -46,8 +48,21 @@ public class ServerConfig {
         }
     };
 
-    private void websocketRegistry(Context ctx, Object handler) {
+    private static Consumer<Context> userAuthHandler = ctx -> {
+        UsersHandlers usersHandlers = HandlerConfig.usersHandlers();
+        ServerContainer scon = (ServerContainer) ctx.getServletContext().getAttribute(Constants.SERVER_CONTAINER_SERVLET_CONTEXT_ATTRIBUTE);
+        try {
+            scon.addEndpoint(ServerEndpointConfig.Builder.create(WebsocketHandler.class, "/login")
+                    .configurator(new ServerEndpointConfig.Configurator() {
+                        @Override
+                        public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
+                            return (T) usersHandlers;
+                            //TODO уйти от каждого раза создания
+                        }
+                    }).build());
+        } catch (DeploymentException e) {
+            e.printStackTrace();
+        }
+    };
 
-
-    }
 }

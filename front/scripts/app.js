@@ -7,7 +7,6 @@ let onFocusTrue = false;
 
 const ws = new WebSocket('ws://localhost:8080');
 
-
 function setStatus(value) {
     status.innerHTML = value;
 }
@@ -16,6 +15,10 @@ function printMessage(value) {
     const li = document.createElement('div');
     li.innerHTML = value;
     messages.appendChild(li);
+}
+
+function sendMessageHttp() {
+    http.open();
 }
 
 function sendMsg() {

@@ -38,6 +38,7 @@ public class UsersHandlers extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ServletOutputStream out = resp.getOutputStream();
+        
         String result = Optional.of(this.userControllers.auth(new UserAuthorizationDto())).orElseThrow(BadRequest::new);
         out.write(result.getBytes());
         out.flush();
