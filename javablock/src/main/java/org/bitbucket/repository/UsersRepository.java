@@ -31,6 +31,7 @@ public class UsersRepository {
     }
 
     public User insert(UserRegistrationDto userRegistrationDto){
+        System.out.println("INSERT");
         return jdbcTemplate.insert(
                 "INSERT INTO users (first_name, last_name, email, login, password, phone_number) VALUES(?, ?, ?, ?, ?, ?)",
                 RowMapper.getCustomRowMapperUser(),
