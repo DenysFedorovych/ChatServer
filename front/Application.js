@@ -4,8 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname));
 const route = router.get('', (req, res,next)=>{
-    // res.send('<form action="/test/post-username" method="POST"> <input type="text" name="username">    <button type="submit"> Send </button> </form>');
     res.sendFile(path.join(__dirname, 'html', 'main.html'));
 });
 // router.post('/post-username', (req, res, next)=>{
@@ -14,7 +15,7 @@ const route = router.get('', (req, res,next)=>{
 // });
 module.exports = router;
 
-app.use(bodyParser.urlencoded({extended: false})); app.use(express.static(path.join(__dirname, 'css')));
+
 app.use('',route);
 app.use((req, res,next)=>{
     res.status(404).send('<h1> Page not found </h1>');

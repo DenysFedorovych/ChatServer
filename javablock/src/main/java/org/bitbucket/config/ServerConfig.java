@@ -40,6 +40,7 @@ public class ServerConfig {
                         @Override
                         public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
                             return (T) HandlerConfig.websocketHandler();
+                            //TODO уйти от каждого раза создания
                         }
                     }).build());
         } catch (DeploymentException e) {
