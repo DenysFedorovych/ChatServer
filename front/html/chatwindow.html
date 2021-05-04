@@ -9,31 +9,28 @@
 </style>
 <body>
 <div class="chatwindow">
-    <div class="users_list">
-        <header class="user_header">
+    <div class="users">
+        <header class="user_header" id="userHeader">
             <span class="spantext" id="usersLabel">Users</span>
         </header>
         <div class="users_body">
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-            <p>********</p>
-
+            <div class="windowBox" id="users_list"></div>
         </div>
     </div>
     <div class="chat_dialogs_template">
         <header class="mainHeader">
-            <span class="spantext" id="main">Old style chat</span>
-            <span class="spantext" id="status">OFFLINE</span>
-            <span class="spantext" id="buttonExit">
-                <button type="button" id="exitBtn">EXIT</button>
-            </span>
+            <div class="headerBox">
+                <div class="spantext" id="main">Old style chat</div>
+                <div class="spantext" id="status">OFFLINE</div>
+                <div class="spantext" id="buttonExit">
+                    <button type="button" id="exitBtn">EXIT</button>
+                </div>
+<!--                <div class="spantext" id="color">-->
+<!--                    <input type="color" id="colorChanger" onchange="changeColor()">-->
+<!--                </div>-->
+            </div>
         </header>
-        <div id="messages"></div>
+        <div class="windowBox" id="messages"></div>
         <form id="form">
             <div class="write_area">
                 <textarea id="input" onkeypress="sendByEnter()"></textarea>

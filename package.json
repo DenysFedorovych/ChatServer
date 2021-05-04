@@ -2,6 +2,10 @@
   "name": "chatserver",
   "version": "1.0.0",
   "dependencies": {
+    "cors": "^2.8.5",
     "ws": "^7.4.5"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1"
   }
 }
