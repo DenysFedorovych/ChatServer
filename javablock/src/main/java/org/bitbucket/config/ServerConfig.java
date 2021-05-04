@@ -29,7 +29,7 @@ public class ServerConfig {
         ctx.addApplicationListener(WsContextListener.class.getName());
         tomcat.addServlet("", "UsersHandler", HandlerConfig.usersHandlers());
         ctx.addServletMappingDecoded("/users", "UsersHandler");
-        return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler));
+        return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler, userAuthHandler));
     }
 
     private static Consumer<Context> chatWebsocketHandler = ctx -> {
@@ -48,8 +48,21 @@ public class ServerConfig {
         }
     };
 
-    private void websocketRegistry(Context ctx, Object handler) {
+    private static Consumer<Context> userAuthHandler = ctx -> {
+        UsersHandlers usersHandlers = HandlerConfig.usersHandlers();
+        ServerContainer scon = (ServerContainer) ctx.getServletContext().getAttribute(Constants.SERVER_CONTAINER_SERVLET_CONTEXT_ATTRIBUTE);
+        try {
+            scon.addEndpoint(ServerEndpointConfig.Builder.create(WebsocketHandler.class, "/login")
+                    .configurator(new ServerEndpointConfig.Configurator() {
+                        @Override
+                        public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
+                            return (T) usersHandlers;
+                            //TODO уйти от каждого раза создания
+                        }
+                    }).build());
+        } catch (DeploymentException e) {
+            e.printStackTrace();
+        }
+    };
 
-
-    }
 }

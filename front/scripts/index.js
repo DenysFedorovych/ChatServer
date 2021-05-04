@@ -1,35 +1,26 @@
+import axios from "axios";
 
 function login() {
-    let newSocket = new WebSocket("ws://echo.websocket.org");
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+
     let logIn = {
-        type: "login",
-        username: username,
+        login: username,
         password: password
     };
 
-    newSocket.onopen = function (event) {
-        console.log("CONNECTION");
-        newSocket.send(JSON.stringify(logIn));
-    }
-
-    newSocket.onclose = function (event) {
-        alert("CONNECTION CLOSED");
-    }
-
-    newSocket.onmessage = function (event) {
-        const message = event.data;
-        message.id;
-        alert(JSON.parse(event.data));
-    }
-
-    newSocket.onerror = function (event) {
-        alert(event.code + "ERROR");
-    }
+    axios.get("http://localhost:8080/login/auth",logIn).then((response) => {
+        if(response.status === 200) {
+            document.location.href = "http://localhost:8080/chat";
+            document.cookie = "token="+response.headers.getAttribute("Bearer");
+        }
+    })
 }
 
 function registration() {
+
+
+
     const firstName = document.getElementById("fname").value;
     const lastName = document.getElementById("lname").value;
     const username = document.getElementById("username").value;
