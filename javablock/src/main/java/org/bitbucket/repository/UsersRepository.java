@@ -16,7 +16,7 @@ public class UsersRepository {
     public User findByAuthDto(UserAuthorizationDto userAuthorizationDto){
         return jdbcTemplate.findBy(
                 "SELECT * FROM users WHERE login = ? AND password = ?",
-                RowMapper.getCustomRowMapperUser(),
+                UserRowMapper.getCustomRowMapperUser(),
                 userAuthorizationDto.getLogin(),
                 userAuthorizationDto.getPassword()
         );
@@ -25,7 +25,7 @@ public class UsersRepository {
     public User findById(long id){
         return jdbcTemplate.findBy(
                 "SELECT * FROM users WHERE id = ?",
-                RowMapper.getCustomRowMapperUser(),
+                UserRowMapper.getCustomRowMapperUser(),
                 id
         );
     }
@@ -34,7 +34,7 @@ public class UsersRepository {
         System.out.println("INSERT");
         return jdbcTemplate.insert(
                 "INSERT INTO users (first_name, last_name, email, login, password, phone_number) VALUES(?, ?, ?, ?, ?, ?)",
-                RowMapper.getCustomRowMapperUser(),
+                UserRowMapper.getCustomRowMapperUser(),
                 userRegistrationDto.getFirstName(),
                 userRegistrationDto.getLastName(),
                 userRegistrationDto.getEmail(),

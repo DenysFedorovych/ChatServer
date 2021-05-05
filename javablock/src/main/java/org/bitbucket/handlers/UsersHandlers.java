@@ -42,8 +42,8 @@ public class UsersHandlers extends HttpServlet {
     public void doOptions(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("DO OPTIONS");
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
-        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        resp.setHeader("Access-Control-Allow-Methods", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "*");
         resp.setStatus(204);
     }
 
@@ -60,6 +60,9 @@ public class UsersHandlers extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("DO POST");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "*");
         String body = req.getReader().lines().collect(Collectors.joining());
         System.out.println(req.getHeader("Content-Type"));
         if (!req.getHeader("Content-Type").contains("application/json")) {
@@ -73,9 +76,10 @@ public class UsersHandlers extends HttpServlet {
                 UserAuthorizationDto payload = JsonHelper.fromFormat(body, UserAuthorizationDto.class)
                         .orElseThrow(BadRequest::new);
                 String result = Optional.of(this.userControllers.auth(payload)).orElseThrow(BadRequest::new);
-                ServletOutputStream out = resp.getOutputStream();
+                System.out.println(result);
                 resp.setContentType("application/json");
                 resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+                ServletOutputStream out = resp.getOutputStream();
                 out.write(result.getBytes());
                 out.flush();
                 out.close();

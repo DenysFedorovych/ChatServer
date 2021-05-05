@@ -6,6 +6,10 @@ public class Envelope {
 
     private String payload;
 
+    public void setTopic(String s) {
+        this.topic = Topic.getTopic(s);
+    }
+
     public Topic getTopic() {
         return topic;
     }

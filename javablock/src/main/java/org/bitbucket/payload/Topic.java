@@ -15,4 +15,13 @@ public enum Topic{
     public String getVal() {
         return val;
     }
+
+    public static Topic getTopic(String s) {
+        for(Topic t: values()) {
+            if(t.getVal().equals(s)) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("No topic");
+    }
 }

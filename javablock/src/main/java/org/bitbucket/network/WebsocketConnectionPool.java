@@ -1,4 +1,4 @@
-package org.bitbucket.utils;
+package org.bitbucket.network;
 
 import javax.websocket.Session;
 import java.util.LinkedList;

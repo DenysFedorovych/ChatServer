@@ -5,7 +5,7 @@ import org.bitbucket.payload.Envelope;
 import org.bitbucket.payload.Token;
 import org.bitbucket.utils.JsonHelper;
 import org.bitbucket.utils.TokenProvider;
-import org.bitbucket.utils.WebsocketConnectionPool;
+import org.bitbucket.network.WebsocketConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +33,15 @@ public class WebsocketHandler {
             Envelope env = JsonHelper.fromFormat(payload, Envelope.class).orElseThrow();
             switch (env.getTopic()) {
                 case auth:
+                    System.out.println("TEST AAA");
                     Token result = TokenProvider.decode(env.getPayload());
+                    System.out.println(result.toString() + "a");
                     Long id = result.getUserId();
+                    System.out.println(id);
                     this.websocketConnectionPool.addSession(id, session);
                     break;
                 case messages:
+                    System.out.println("MSG");
                     this.broker.broadcast(this.websocketConnectionPool.getSessions(), env);
                     break;
                 case disconnect:

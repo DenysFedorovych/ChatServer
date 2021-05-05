@@ -15,10 +15,10 @@ public class Broker {
     private static final Logger logger = LoggerFactory.getLogger(Broker.class);
 
     public void broadcast(List<Session> sessions, Envelope envelope) {
-        String message = JsonHelper.toFormat(envelope).orElseThrow();
+//        String message = JsonHelper.toFormat(envelope).orElseThrow();
         sessions.forEach(session -> {
             try {
-                session.getBasicRemote().sendText(message);
+                session.getBasicRemote().sendText(envelope.getPayload());
             } catch (IOException exception) {
                 logger.warn("Enter : {}", exception.getMessage());
             }

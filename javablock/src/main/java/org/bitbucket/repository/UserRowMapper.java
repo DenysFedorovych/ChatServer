@@ -5,7 +5,7 @@ import org.bitbucket.dto.UserRegistrationDto;
 import org.bitbucket.entity.User;
 import org.bitbucket.micro.orm.CustomRowMapper;
 
-public class RowMapper {
+public class UserRowMapper {
 
     private static CustomRowMapper<UserAuthorizationDto> customRowMapperAuth;
 

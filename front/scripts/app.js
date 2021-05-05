@@ -5,24 +5,23 @@ const input = document.getElementById('input');
 
 let onFocusTrue = false;
 
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket('ws://localhost:8080/chat');
 
 function setStatus(value) {
     status.innerHTML = value;
 }
 
 function printMessage(value) {
-    const li = document.createElement('div');
-    li.innerHTML = value;
-    messages.appendChild(li);
-}
-
-function sendMessageHttp() {
-    http.open();
+    const div = document.createElement('div');
+    console.log(value);
+    div.innerHTML = value;
+    messages.appendChild(div);
 }
 
 function sendMsg() {
-    ws.send(input.value);
+    let env = JSON.stringify({topic: 'messages', payload: input.value});
+    printMessage(input.value);
+    ws.send(env);
     input.value = '';
 }
 
@@ -30,20 +29,15 @@ input.onfocus = function() {
     onFocusTrue = true;
 }
 
-
-function sendByEnter() {
-    let key = 0;
-    document.addEventListener('keypress', (ev) => {
-        key = ev.code;
-        console.log(key, onFocusTrue);
-    })
-    if (key === "Enter" && onFocusTrue === true) {
-        ws.send(input.value);
-        input.value = '';
-    }
+function sendStartEnvelope() {
+    let env = JSON.stringify({topic: 'auth', payload: document.cookie});
+    ws.send(env);
 }
 
-ws.onopen = () => setStatus('DOGO ONLINE');
+ws.onopen = () => {
+    sendStartEnvelope();
+    setStatus('DOGO ONLINE');
+}
 
 ws.onclose = () => setStatus('DOGO OUT');
 
