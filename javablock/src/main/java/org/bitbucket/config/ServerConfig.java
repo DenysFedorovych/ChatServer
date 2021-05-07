@@ -27,8 +27,8 @@ public class ServerConfig {
         tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());
         ctx.addApplicationListener(WsContextListener.class.getName());
-        tomcat.addServlet("", "UsersHandler", HandlerConfig.usersHandlers());
-        ctx.addServletMappingDecoded("/users", "UsersHandler");
+        tomcat.addServlet("", "UsersHandlers", HandlerConfig.usersHandlers());
+        ctx.addServletMappingDecoded("/users", "UsersHandlers");
         return new ServerRunner(tomcat, ctx, List.of(chatWebsocketHandler, userAuthHandler));
     }
 
@@ -57,7 +57,6 @@ public class ServerConfig {
                         @Override
                         public <T> T getEndpointInstance(Class<T> clazz) throws InstantiationException {
                             return (T) usersHandlers;
-                            //TODO уйти от каждого раза создания
                         }
                     }).build());
         } catch (DeploymentException e) {
