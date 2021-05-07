@@ -20,7 +20,7 @@ function printMessage(value) {
 
 function sendMsg() {
     let env = JSON.stringify({topic: 'messages', payload: input.value});
-    printMessage(input.value);
+    //printMessage(input.value);
     ws.send(env);
     input.value = '';
 }
@@ -30,7 +30,7 @@ input.onfocus = function() {
 }
 
 function sendStartEnvelope() {
-    let env = JSON.stringify({topic: 'auth', payload: document.cookie});
+    let env = JSON.stringify({topic: 'auth', payload: localStorage.getItem("token")});
     ws.send(env);
 }
 

@@ -24,5 +24,4 @@ public class WebsocketConnectionPool {
     public List<Session> getSessions() {
         return new LinkedList<>(this.sessions.values());
     }
-
 }

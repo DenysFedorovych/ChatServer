@@ -22,11 +22,9 @@ public class UserControllers {
     }
 
     public void registration(UserRegistrationDto userRegistrationDto) {
-        //User u = TransferObj.toUser(payload);
         if (this.customUsersService.findByAuth(new UserAuthorizationDto(userRegistrationDto)) != null) {
             throw new UserAlreadyExistException();
         }
-        //customUsersService.insert(u);
         customUsersService.insert(userRegistrationDto);
     }
 }

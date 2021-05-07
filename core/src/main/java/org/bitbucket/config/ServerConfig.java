@@ -19,7 +19,7 @@ public class ServerConfig {
         Tomcat tomcat = new Tomcat();
         String webPort = System.getenv("PORT");
         if (webPort == null || webPort.isEmpty()) {
-            webPort = "8080"; //TODO - make 5432
+            webPort = "8080";
         }
         tomcat.setPort(Integer.parseInt(webPort));
         Context ctx = tomcat.addWebapp("/", new File(".").getAbsolutePath());

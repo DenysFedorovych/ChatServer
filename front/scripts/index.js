@@ -42,7 +42,7 @@ function login() {
         .then((response) => {
             if (response.status >= 200 && response.status < 300) {
                 //document.location = "http://localhost:8080/chat";
-                document.cookie = response.data;
+                localStorage.setItem("token", response.data);
                 console.log(response.data);
                 document.location = "..\\html\\chatwindow.html";
             }
