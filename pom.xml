@@ -12,7 +12,7 @@
             micro-orm
         </module>
         <module>
-            javablock
+            core
         </module>
     </modules>
     <properties>
