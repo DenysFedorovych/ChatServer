@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public class JsonHelper {
 
-    private static final Logger logger = LogManager.getLogger("JsonHelper");
+    private static ObjectMapper mapper = new ObjectMapper();
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Logger logger = LogManager.getLogger("JsonHelper");
 
     public static <T> Optional<String> toFormat(T object) {
         try {

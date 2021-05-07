@@ -29,6 +29,7 @@ public class ServerRunner {
         try {
             this.tomcat.start();
             listeners.forEach(lst -> lst.accept(this.ctx));
+            // TODO: 30.04.2021 add ws handlers and logger
             this.tomcat.getServer().await();
         } catch (LifecycleException e) {
             logger.warn("Enter {}", e.getMessage());

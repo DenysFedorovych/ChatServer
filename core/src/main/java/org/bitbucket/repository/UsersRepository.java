@@ -13,7 +13,7 @@ public class UsersRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public User findByAuthDto(UserAuthorizationDto userAuthorizationDto) {
+    public User findByAuthDto(UserAuthorizationDto userAuthorizationDto){
         return jdbcTemplate.findBy(
                 "SELECT * FROM users WHERE login = ? AND password = ?",
                 UserRowMapper.getCustomRowMapperUser(),
@@ -22,7 +22,7 @@ public class UsersRepository {
         );
     }
 
-    public User findById(long id) {
+    public User findById(long id){
         return jdbcTemplate.findBy(
                 "SELECT * FROM users WHERE id = ?",
                 UserRowMapper.getCustomRowMapperUser(),
@@ -30,7 +30,8 @@ public class UsersRepository {
         );
     }
 
-    public User insert(UserRegistrationDto userRegistrationDto) {
+    public User insert(UserRegistrationDto userRegistrationDto){
+        System.out.println("INSERT");
         return jdbcTemplate.insert(
                 "INSERT INTO users (first_name, last_name, email, login, password, phone_number) VALUES(?, ?, ?, ?, ?, ?)",
                 UserRowMapper.getCustomRowMapperUser(),
@@ -43,14 +44,14 @@ public class UsersRepository {
         );
     }
 
-    public void delete(UserRegistrationDto userRegistrationDto) {
+    public void delete(UserRegistrationDto userRegistrationDto){
         jdbcTemplate.delete(
                 "DELETE FROM users WHERE login = ?",
                 userRegistrationDto.getLogin()
         );
     }
 
-    public void update(UserRegistrationDto userRegistrationDto) {
+    public void update(UserRegistrationDto userRegistrationDto){
         jdbcTemplate.update(
                 "UPDATE users " +
                         "SET first_name = ?, last_name = ?, email = ?, login = ?, password = ?, phone_number = ?" +
@@ -62,6 +63,7 @@ public class UsersRepository {
                 userRegistrationDto.getPassword(),
                 userRegistrationDto.getPhone(),
                 userRegistrationDto.getLogin()
-        );
+                );
     }
+
 }

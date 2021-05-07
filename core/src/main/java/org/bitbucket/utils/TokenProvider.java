@@ -2,36 +2,43 @@ package org.bitbucket.utils;
 
 import org.bitbucket.payload.Token;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
+import java.security.*;
 import java.util.Arrays;
 import java.util.Base64;
 
 public class TokenProvider {
 
     private static final String key = "TopSecret2281337";
-
     private static Key aesKey;
 
     static {
-        aesKey = new SecretKeySpec(Arrays.copyOf(key.getBytes(StandardCharsets.UTF_8), 16), "AES");
+        try {
+            aesKey = new SecretKeySpec(Arrays.copyOf(key.getBytes("UTF-8"), 16), "AES");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String encrypt(String data) {
+
+
         byte[] decodedKey = Base64.getDecoder().decode(key);
+
         try {
             Cipher cipher = Cipher.getInstance("AES");
             SecretKey originalKey = new SecretKeySpec(Arrays.copyOf(decodedKey, 16), "AES");
             cipher.init(Cipher.ENCRYPT_MODE, originalKey);
-            byte[] cipherText = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
+            byte[] cipherText = cipher.doFinal(data.getBytes("UTF-8"));
             return Base64.getEncoder().encodeToString(cipherText);
         } catch (Exception e) {
             throw new RuntimeException(
                     "Error occured while encrypting data", e);
         }
+
     }
 
     public static String decrypt(String encryptedString) {
@@ -54,7 +61,6 @@ public class TokenProvider {
     }
 
     public static Token decode(String string) {
-        System.out.println(JsonHelper.fromFormat(decrypt(string), Token.class).orElse(null));
         return JsonHelper.fromFormat(decrypt(string), Token.class).orElse(null);
     }
 

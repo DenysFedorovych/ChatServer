@@ -11,10 +11,10 @@ public class UsersRepositoryTest {
 
     private UsersRepository repo = DatabaseConfig.getUsersRepository();
 
-    private UserRegistrationDto userRegistrationDto = new UserRegistrationDto("Denys", "Fedorovych", "login", "password", "password","email", "+22222222");
+    private UserRegistrationDto userRegistrationDto = new UserRegistrationDto("Denys", "Fedorovych", "login","nickname", "password", "password","email", "+22222222");
     private UserAuthorizationDto userAuthorizationDto = new UserAuthorizationDto("login","password");
-    private User user1 = new User(1,"Denys","Fedorovych","ffff","login","password","ffff");
-    private User user = new User(1, "Denys", "Fedorovych", "email", "login", "password", "+22222222");
+    private User user1 = new User(1,"Denys", "Fedorovych","email","login","nickname","password", "+22222222");
+    private User user = new User(1, "Denys", "Fedorovych","email", "login", "nickname","password", "+22222222");
     private UserRegistrationDto userRegistrationDto1 = new UserRegistrationDto(user1);
 
     @Test
