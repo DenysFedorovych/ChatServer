@@ -33,12 +33,12 @@ public class WebsocketHandler {
             Envelope env = JsonHelper.fromFormat(payload, Envelope.class).orElseThrow();
             switch (env.getTopic()) {
                 case auth:
-                    Token result = TokenProvider.decode(env.getPayload());
+                    Token result = TokenProvider.decode(env.getToken());
                     Long id = result.getUserId();
                     this.websocketConnectionPool.addSession(id, session);
                     break;
                 case messages:
-                    this.broker.broadcast(this.websocketConnectionPool.getSessions(), env);
+                    this.broker.broadcast(this.websocketConnectionPool.getSessions(), env.getMessage());
                     break;
                 case disconnect:
 

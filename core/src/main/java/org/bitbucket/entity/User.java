@@ -18,6 +18,8 @@ public class User {
 
     private String phoneNumber;
 
+    private String nickname;
+
     public User() {
     }
 

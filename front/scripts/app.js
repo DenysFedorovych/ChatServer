@@ -41,4 +41,7 @@ ws.onopen = () => {
 
 ws.onclose = () => setStatus('DOGO OUT');
 
-ws.onmessage = response => printMessage(response.data);
+ws.onmessage = response => {
+    // нам приходит Message объект и нам надо отобразить отдельно дату и все остальное, нужно сделать логику
+    printMessage(response.data);
+}
