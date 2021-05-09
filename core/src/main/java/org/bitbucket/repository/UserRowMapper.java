@@ -30,6 +30,7 @@ public class UserRowMapper {
                     rs.getString("last_name"),
                     rs.getString("email"),
                     rs.getString("login"),
+                    rs.getString("nickname"),
                     rs.getString("password"),
                     rs.getString("phone_number")
             );
@@ -37,12 +38,13 @@ public class UserRowMapper {
         return customRowMapperUser;
     }
 
-    public static CustomRowMapper<UserRegistrationDto> getCustomRowMapperReg(){
+    public static CustomRowMapper<UserRegistrationDto> getCustomRowMapperReg() {
         if (customRowMapperReg == null) {
             customRowMapperReg = rs -> new UserRegistrationDto(
                     rs.getString("firstName"),
                     rs.getString("lastName"),
                     rs.getString("login"),
+                    rs.getString("nickname"),
                     rs.getString("password"),
                     rs.getString("confirmPassword"),
                     rs.getString("email"),

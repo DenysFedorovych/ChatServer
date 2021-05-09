@@ -5,26 +5,28 @@ import org.bitbucket.dto.UserRegistrationDto;
 import org.bitbucket.entity.User;
 import org.bitbucket.exceptions.UserAlreadyExistException;
 import org.bitbucket.payload.Token;
-import org.bitbucket.service.CustomUsersService;
+import org.bitbucket.service.UsersService;
 import org.bitbucket.utils.TokenProvider;
 
 public class UserControllers {
 
-    private final CustomUsersService customUsersService;
+    private final UsersService usersService;
 
-    public UserControllers(CustomUsersService customUsersService) {
-        this.customUsersService = customUsersService;
+    public UserControllers(UsersService customUsersService) {
+        this.usersService = customUsersService;
     }
 
     public String auth(UserAuthorizationDto payload) {
-        User user = this.customUsersService.findByAuth(payload);
+        User user = this.usersService.findByAuth(payload);
         return TokenProvider.encode(new Token(user));
     }
 
     public void registration(UserRegistrationDto userRegistrationDto) {
-        if (this.customUsersService.findByAuth(new UserAuthorizationDto(userRegistrationDto)) != null) {
+        //User u = TransferObj.toUser(payload);
+        if (this.usersService.findByAuth(new UserAuthorizationDto(userRegistrationDto)) != null) {
             throw new UserAlreadyExistException();
         }
-        customUsersService.insert(userRegistrationDto);
+        //customUsersService.insert(u);
+        usersService.insert(userRegistrationDto);
     }
 }

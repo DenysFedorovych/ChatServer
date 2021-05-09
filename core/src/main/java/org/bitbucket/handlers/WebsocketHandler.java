@@ -41,11 +41,12 @@ public class WebsocketHandler {
                     this.broker.broadcast(this.websocketConnectionPool.getSessions(), env.getMessage());
                     break;
                 case disconnect:
-
+                    //TODO
                     break;
                 default:
             }
         } catch (Throwable e) {
+            //TODO single sent about user
             logger.warn("Enter {}", e.getMessage());
         }
     }
