@@ -2,6 +2,9 @@ package org.bitbucket.entity;
 
 import org.bitbucket.payload.Message;
 
+import javax.websocket.Session;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Room {
@@ -12,10 +15,17 @@ public class Room {
 
     private final List<User> members;
 
-    public Room(String name, List<Message> history, List<User> members) {
+    private final List<Session> sessions;
+
+    public Room(String name) {
         this.name = name;
-        this.history = history;
-        this.members = members;
+        this.history = new LinkedList<>();
+        this.members = new ArrayList<>();
+        this.sessions = new ArrayList<>();
+    }
+
+    public void addMember(User user) {
+        this.members.add(user);
     }
 
     public String getName() {
@@ -28,5 +38,9 @@ public class Room {
 
     public List<User> getMembers() {
         return members;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
     }
 }

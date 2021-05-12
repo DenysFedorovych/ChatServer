@@ -3,7 +3,6 @@ package org.bitbucket.payload;
 public enum Topic{
     auth("auth"),
     messages("messages"),
-    connect("connect"),
     disconnect("disconnect");
 
     private String val;
@@ -14,5 +13,12 @@ public enum Topic{
 
     public String getVal() {
         return val;
+    }
+
+    public static Topic getTopic (String str) {
+        for(Topic each : values()) {
+            if(each.getVal().equals(str)) return each;
+        }
+        throw new IllegalArgumentException("Unhandled topic");
     }
 }

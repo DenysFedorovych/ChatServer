@@ -18,7 +18,7 @@ public class Message {
     }
 
     private String getDateString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd:MM:yy HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return format.format(date);
     }
 

@@ -1,5 +1,6 @@
 package org.bitbucket.network;
 
+import org.bitbucket.entity.Room;
 import org.bitbucket.payload.Message;
 import org.bitbucket.utils.JsonHelper;
 import org.slf4j.Logger;
@@ -13,9 +14,9 @@ public class Broker {
 
     private static final Logger logger = LoggerFactory.getLogger(Broker.class);
 
-    public void broadcast(List<Session> sessions, Message message) {
+    public void broadcast(Room room, Message message) {
         String json = JsonHelper.toFormat(message).get();
-        sessions.forEach(session -> {
+        room.getSessions().forEach(session -> {
             send(session, json);
         });
     }
